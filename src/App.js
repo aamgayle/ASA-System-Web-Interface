@@ -1,27 +1,42 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      info: "",
+      isLoaded: false
+    };
+  }
+
+  componentDidMount(){
+    console.log("Fetching...")
+    fetch('/api/students/single/55555')
+      .then(res => this.setState({
+        isLoaded: true,
+        info: "Done"
+      }))
+/*      .then(json => this.setState({info: json, isLoaded: true}))
+      .then(json => console.log("Done"))*/
+  };
+
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+    let {isLoaded, info} = this.state;
+    
+    if(!isLoaded){
+      return <div>Loading...</div>
+    } else{
+      return (
+        <div className="App">
+          <input type="text" class="text-field"></input>
+          <button class="access-button">SEND</button>
+          <br/>
+          <div class="show-result">{info}</div> 
+        </div>
+      );
+    }
   }
 }
 
