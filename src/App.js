@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import AppNavbar from './components/AppNavbar';
+import ClassListTable from './components/ClassListTable'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 class App extends Component {
@@ -30,10 +34,13 @@ class App extends Component {
     } else{
       return (
         <div className="App">
+          <AppNavbar />
+          <ClassListTable/> 
           <input type="text" class="text-field"></input>
           <button class="access-button">SEND</button>
           <br/>
-          <div class="show-result">{info}</div> 
+          <div class="show-result">{info}</div>
+          
         </div>
       );
     }
