@@ -23,11 +23,11 @@ class ClassListTable extends Component{
                 <tbody>
                     <tr>
                         <TimeCell time="15:00 PM"/>
-                        <td>Some Class</td>
-                        <td>Some Class</td>
-                        <td>Some Class</td>
-                        <td>Some Class</td>
-                        <td>Some Class</td>
+                        <ClassListTableCell class_info="Some Class" class_id="0001"/>
+                        <ClassListTableCell class_info="Some Class" class_id="0001"/>
+                        <ClassListTableCell class_info="Some Class" class_id="0001"/>
+                        <ClassListTableCell class_info="Some Class" class_id="0001"/>
+                        <ClassListTableCell class_info="Some Class" class_id="0001"/>
                     </tr>
                     <tr>
                         <TimeCell time="11:00 PM"/>
