@@ -12,11 +12,7 @@ class ClassListTable extends Component{
     componentDidMount(){
         axios.get('/api/courses')
             .then(res =>{
-                console.log("Before function")
-                console.log(this.state)
                 this.setState({courses: res.data})
-                console.log("This is the state")
-                console.log(this.state)
             })
     }
 
@@ -26,10 +22,6 @@ class ClassListTable extends Component{
         )
     }
     
-    displayState(){
-        console.log(this.state.courses);
-    }
-
     render()
         {
         return(

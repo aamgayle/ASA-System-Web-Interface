@@ -1,18 +1,25 @@
 import React, {Component} from 'react';
 import {Table} from 'reactstrap';
 import AddRecipient from './AddRecipient'
-import Recipient from './Recipient'
+import RecipientProf from './Recipient-Prof'
+import axios from 'axios'
 
-class IndividualStudentTable extends Component{
-    // state = {
-    //     studnent_name: props.match.studnent_name,
-    //     class_name: this.props.class_name,
-    //     class_number: this.props.class_number,
-    //     class_semester: this.props.class_semester
-    // }
-    // <h2>{this.state.studnent_name}</h2>
-    // <h2>{this.state.class_name} {this.state.class_number}</h2>
-    // <h2>{this.state.class_semester}</h2>
+class IndividualStudentTablePROF extends Component{
+    state = {
+        classID: this.props.match.params.classID,
+        first_Name: "",
+        last_Name: "",
+        recepient:[]
+    }
+
+    componentDidMount(){
+        axios.get('/api/students/single/'+this.props.match.params.stuID)
+            .then(res =>{
+                this.setState({...res.data[0]})
+                console.log("This is the state")
+                console.log(this.state)
+            })
+    }
 
     render()
         {
@@ -27,14 +34,15 @@ class IndividualStudentTable extends Component{
                 </Table>
                 <Table hover>
                     <thead>
-                        <AddRecipient/>
                         <tr>
                             <th>Recipient</th>
                             <th>Recipient Email</th>
                             <th>Action</th>
                         </tr>
-                        <Recipient name="Asa Gayle" email="azmatch.gayle@gmail.com"/>
-                        <Recipient name="George Kurian" email="george.kurian@gmail.com"/>
+                        {this.state.recepient.map(r => <RecipientProf name={r[0]} email={r[1]}/>)}
+                        
+                        <tr><th>Add Email</th></tr>
+                        <AddRecipient/>
                     </thead>
                     <br/>
                     <tbody>
@@ -97,4 +105,4 @@ class IndividualStudentTable extends Component{
     }
 }
 
-export default IndividualStudentTable;
+export default IndividualStudentTablePROF;

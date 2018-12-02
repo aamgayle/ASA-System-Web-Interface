@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Recipient extends Component{
+class RecipientProf extends Component{
     state = {
         r_name: this.props.name,
         r_email: this.props.email        
@@ -16,4 +16,4 @@ class Recipient extends Component{
     }
 }
 
-export default Recipient;
+export default RecipientProf;

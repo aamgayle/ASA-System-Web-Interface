@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Container } from 'reactstrap';
 class AddRecipient extends Component{
     state = {
         r_name: this.props.name,
@@ -6,11 +7,10 @@ class AddRecipient extends Component{
     }
     render(){
         return(
-            <tr>
-                <td>Add Email</td>
-                <td>Recipient <input type="text"></input></td>
-                <td>Recipient Email <input type="text"></input>     <button>+</button><span/></td>
-            </tr>
+                <tr>
+                    <td>Recipient <br/><input type="text"></input></td>
+                    <td>Recipient Email <br/><input type="text"></input>     <button>Add</button><span/></td>
+                </tr>
         )
     }
 }
