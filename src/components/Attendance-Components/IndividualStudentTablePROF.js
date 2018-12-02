@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {Table} from 'reactstrap';
-import AddRecipient from './AddRecipient'
-import RecipientProf from './Recipient-Prof'
+import AddRecipient from '../AddRecipient'
+import RecipientProf from '../Recipient-Prof'
 import axios from 'axios'
+import {AttendanceDate,
+    AttendanceStatus,
+    AttendanceTime} from './AttendanceStats'
 
 class IndividualStudentTablePROF extends Component{
     state = {
@@ -26,8 +29,8 @@ class IndividualStudentTablePROF extends Component{
         return(
             <div>
                
-                <h2 className="text-center">Student Name Hilary Maduakor</h2>
-                <h2 className="text-center">DATABASE MANAGEMENT SYSTEMS CIS-1005</h2>
+               <h2 className="text-center">Student Name {this.state.first_Name} {this.state.last_Name}</h2>
+                <h2 className="text-center">{this.props.match.params.classID}</h2>
                 <h2 className="text-center">FALL 2018</h2>
                 <Table>
 

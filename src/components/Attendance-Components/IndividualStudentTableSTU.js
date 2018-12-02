@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import {Table} from 'reactstrap';
-import RecipientStu from './RecipientStu'
+import RecipientStu from '../RecipientStu'
 import axios from 'axios'
+import { AttendanceDate, AttendanceStatus, AttendanceTime } from './AttendanceStats';
 
 class IndividualStudentTableSTU extends Component{
     state = {
         classID: this.props.match.params.classID,
         first_Name: "",
         last_Name: "",
-        recepient:[]
+        recepient:[],
+        cID_Attendence:{}
     }
 
     componentDidMount(){
@@ -18,6 +20,30 @@ class IndividualStudentTableSTU extends Component{
                 console.log("This is the state")
                 console.log(this.state)
             })
+    }
+
+    renderDates(){
+        if(this.state.cID_Attendence[this.state.classID] !== undefined){
+        return this.state.cID_Attendence[this.state.classID][0].map((d, index) => {console.log(d); return <AttendanceDate key={index} date={d}/>})
+        } else{
+            console.log(this.state.cID_Attendence)
+        }
+    }
+
+    renderAttendence(){
+        if(this.state.cID_Attendence[this.state.classID] !== undefined){
+            return this.state.cID_Attendence[this.state.classID][1].map((d, index) => {console.log(d); return <AttendanceStatus key={index} status={d}/>})
+        } else{
+            console.log(this.state.cID_Attendence)
+        }
+    }
+
+    renderTime(){
+        if(this.state.cID_Attendence[this.state.classID] !== undefined){
+            return this.state.cID_Attendence[this.state.classID][2].map((d, index) => {console.log(d); return <AttendanceTime key={index} time={d}/>})
+        } else{
+            console.log(this.state.cID_Attendence)
+        }
     }
 
     render()
@@ -48,51 +74,15 @@ class IndividualStudentTableSTU extends Component{
                                 <Table striped hover bordered >
                                     <tr>
                                         <td>Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
-                                        <td>Test-Date</td>
+                                        {this.renderDates()}
                                     </tr>
                                     <tr>
                                         <td>Attendence</td>
-                                        <td>Absent</td>
-                                        <td>Tardy</td>
-                                        <td>Absent</td>
-                                        <td>Tardy</td>
-                                        <td>Absent</td>
-                                        <td>Tardy</td>
-                                        <td>Absent</td>
-                                        <td>Tardy</td>
-                                        <td>Absent</td>
-                                        <td>Tardy</td>
-                                        <td>Absent</td>
-                                        <td>Tardy</td>
-                                        <td>Absent</td>
+                                        {this.renderAttendence()}
                                     </tr>
                                     <tr>
                                         <td>Timestamp</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
-                                        <td>00:00</td>
+                                        {this.renderTime()}
                                     </tr>
                                 </Table>
                             </tbody>
