@@ -1,8 +1,8 @@
 import AbscenceTable from './components/AbscenseTable';
 import AppNavbar from './components/AppNavbar';
 import ClassListTable from './components/ClassListTable'
-import IndividualStudentTablePROF from './components/IndividualStudentTablePROF';
-import IndividualStudentTableSTU from './components/IndividualStudentTableSTU';
+import IndividualStudentTablePROF from './components/Attendance-Components/IndividualStudentTablePROF';
+import IndividualStudentTableSTU from './components/Attendance-Components/IndividualStudentTableSTU';
 import LoginPage from './components/LoginPage'
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom"
