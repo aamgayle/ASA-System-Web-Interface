@@ -43,7 +43,7 @@ class App extends Component {
             <Route path="/abscences" component={AbscenceTable}/>
             <Route path="/classes" component={ClassListTable} />
             <Route path="/student-prof-view" component={IndividualStudentTable}/>
-            <Route path="/student-student-view" component={IndividualStudentTableSTU}/>
+            <Route path="/student-student-view/:classID/:stuID" render={(props) => <IndividualStudentTableSTU {...props}/>}/>
             <Route path="/tardy-window-example" component={TardyWindow}/>
           </div>
           </Router>

@@ -1,25 +1,30 @@
 import React, {Component} from 'react';
 import {Table} from 'reactstrap';
 import RecipientStu from './Recipient-Stu'
+import axios from 'axios'
 
 class IndividualStudentTableSTU extends Component{
-    // state = {
-    //     studnent_name: props.match.studnent_name,
-    //     class_name: this.props.class_name,
-    //     class_number: this.props.class_number,
-    //     class_semester: this.props.class_semester
-    // }
-    // <h2>{this.state.studnent_name}</h2>
-    // <h2>{this.state.class_name} {this.state.class_number}</h2>
-    // <h2>{this.state.class_semester}</h2>
+    state = {
+        stuID: this.props.match.params.stuID,
+        classID: this.props.match.params.classID
+    }
+
+    componentDidMount(){
+        axios.get('/api/students/single/'+this.props.match.params.stuID)
+            .then(res =>{
+                this.setState({...res.data[0]})
+                console.log("This is the state")
+                console.log(this.state)
+            })
+    }
 
     render()
         {
         return(
             <div>
-               
-                <h2 className="text-center">Student Name Hilary Maduakor</h2>
-                <h2 className="text-center">DATABASE MANAGEMENT SYSTEMS CIS-1005</h2>
+                <h2>{}</h2>
+                <h2 className="text-center">Student Name {this.state.first_Name} {this.state.last_Name}</h2>
+                <h2 className="text-center">{this.props.match.params.classID}</h2>
                 <h2 className="text-center">FALL 2018</h2>
                 <Table>
 
