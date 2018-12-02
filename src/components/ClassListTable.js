@@ -47,7 +47,7 @@ class ClassListTable extends Component{
                     <tbody>
                        
                         <tr>
-                            <TimeCell time="poop"/><td>Some Class</td><td>Some Class</td>
+                            <TimeCell time="00:00"/><td>Some Class</td><td>Some Class</td>
                             <ClassListTableCell class_name="Test" class_id="Another Test"/>
                             <td>Some Class</td>
                             <td>Some Class</td>
