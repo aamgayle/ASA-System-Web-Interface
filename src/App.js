@@ -1,6 +1,6 @@
 import AbscenceTable from './components/AbscenseTable';
 import AppNavbar from './components/AppNavbar';
-import ClassListTable from './components/ClassListTable'
+import ClassListTable from './components/ClassListTableSTU'
 import IndividualStudentTablePROF from './components/Attendance-Components/IndividualStudentTablePROF';
 import IndividualStudentTableSTU from './components/Attendance-Components/IndividualStudentTableSTU';
 import LoginPage from './components/LoginPage'
