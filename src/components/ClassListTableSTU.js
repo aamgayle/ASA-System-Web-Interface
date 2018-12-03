@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Container, Table, Button} from 'reactstrap';
+import {Container, Table} from 'reactstrap';
 import TimeCell from './TimeCell'
 import axios from 'axios';
-import ClassListTableCell from './ClassListTableCellSTU';
+import ClassListTableCellSTU from './ClassListTableCellSTU';
 
 class ClassListTableSTU extends Component{
     state = {
@@ -14,18 +14,14 @@ class ClassListTableSTU extends Component{
             "Thursday":"4",
             "Friday":"5"
         },
-        timeObj:{},
-        sortedObj:{}
+        timeObj:{}
     };
 
-    //this.props.match.params.stuID
-    
     componentDidMount(){
-        axios.get('/api/courses/multi/'+this.props.match.params.stuID)
+        axios.get('/api/courses/multi/student/'+this.props.match.params.stuID)
             .then(res =>{
                 this.setState({courses: res.data})
                 this.setTimeObject()
-                //console.log(this.state.timeObj)
             })
     }
 
@@ -47,36 +43,21 @@ class ClassListTableSTU extends Component{
         }
     }
 
-    renderDay(class_name, class_id, student_id){
-        return(
-            <td>
-                <a href={"/student-student-view/"+class_id+"/"+student_id}>
-                    {class_name}
-                </a>
-            </td>
-        )
-    }
-
     renderWeek(){
         return(
             Object.entries(this.state.timeObj).map(timeArr =>{
                 return(
                     <tr>
                         <TimeCell time={timeArr[0]}/>
-                        {Object.entries(timeArr[1]).map(days =>{
-                            return(
-                                this.renderDay(days[1][0], days[1][1], "S0001")
-                            )
-                        })}
+                        {
+                            Object.entries(timeArr[1]).map(days =>{
+                                return <ClassListTableCellSTU class_id={days[1][1]} student_id={this.props.match.params.stuID} class_name={days[1][0]}/>
+                                })
+                        }
                     </tr>
                     )
-                })
-        )
-    }
-
-    createTimeCell(ptime){
-        return(
-            <TimeCell time={ptime}/>
+                }
+            )
         )
     }
     
@@ -104,7 +85,6 @@ class ClassListTableSTU extends Component{
                     </tbody>
                 </Table>
             </Container>
-            
         )
     }
 }

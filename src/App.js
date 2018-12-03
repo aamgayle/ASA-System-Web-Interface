@@ -1,4 +1,4 @@
-import AbscenceTable from './components/AbscenseTable';
+import AbscenceTable from './components/Abscence-Components/AbscenseTable';
 import AppNavbar from './components/AppNavbar';
 import ClassListTableSTU from './components/ClassListTableSTU'
 import ClassListTablePROF from './components/ClassListTablePROF'
@@ -41,7 +41,7 @@ class App extends Component {
           <Router>
           <div>
             <Route exact path="/" component={LoginPage} />
-            <Route path="/abscences" component={AbscenceTable}/>
+            <Route path="/abscences/:courseID" render={(props) => <AbscenceTable {...props}/>}/>
             <Route path="/classes/student/:stuID" render={(props) => <ClassListTableSTU {...props}/>}/>
             <Route path="/classes/prof/:profID" render={(props) => <ClassListTablePROF {...props}/>}/>
             <Route path="/student-prof-view/:classID/:stuID" render={(props) => <IndividualStudentTablePROF {...props}/>}/>

@@ -6,24 +6,61 @@ import ClassListTableCellPROF from './ClassListTableCellPROF';
 
 class ClassListTablePROF extends Component{
     state = {
-        courses: []
+        courses: [],
+        daysObj:{
+            "Monday":"1",
+            "Tuesday":"2",
+            "Wednesday":"3",
+            "Thursday":"4",
+            "Friday":"5"
+        },
+        timeObj:{}
     };
 
-    //this.props.match.params.stuID
-    
     componentDidMount(){
-        axios.get('/api/courses')
+        axios.get('/api/courses/multi/prof/'+this.props.match.params.profID)
             .then(res =>{
                 this.setState({courses: res.data})
+                this.setTimeObject()
             })
     }
 
-    createTimeCell(ptime){
+    setTimeObject(){
+        let courses = this.state.courses;
+        for(let i=0; i<courses.length; i++){
+            for(let j=0; j<courses[i].day_Time.length; j++){
+                if(this.state.timeObj[courses[i].day_Time[j][1]] === undefined){
+                    this.setState(this.state.timeObj[courses[i].day_Time[j][1]] = {
+                        "1":[],
+                        "2":[],
+                        "3":[],
+                        "4":[],
+                        "5":[]
+                    })
+                }
+                this.setState(this.state.timeObj[courses[i].day_Time[j][1]][this.state.daysObj[courses[i].day_Time[j][0]]] = [courses[i].course_Name,courses[i]._id])
+            }
+        }
+    }
+
+    renderWeek(){
         return(
-            <TimeCell time={ptime}/>
+            Object.entries(this.state.timeObj).map(timeArr =>{
+                return(
+                    <tr>
+                        <TimeCell time={timeArr[0]}/>
+                        {
+                            Object.entries(timeArr[1]).map(days =>{
+                                return <ClassListTableCellPROF class_id={days[1][1]} prof_id={this.props.match.params.profID} class_name={days[1][0]}/>
+                                })
+                        }
+                    </tr>
+                    )
+                }
+            )
         )
     }
-    
+
     render()
         {
         return(
@@ -44,43 +81,7 @@ class ClassListTablePROF extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                       
-                        <tr>
-                            <TimeCell time="00:00"/>
-                            <td>Some Class</td>
-                            <td><a>Test</a></td>
-                            <ClassListTableCellPROF class_name="Test" class_id="CIS2006" student_id="S0001"/>
-                            <td>Some Class</td>
-                            <td>Some Class</td>
-                        </tr>
-                        <tr>
-                            <TimeCell time="11:00 PM"/>
-                            <td>
-                                <a href="https://google.com">Another Class</a>
-                            </td>
-                            <td>
-                                <a href=""></a>
-                            </td>
-                            <td><a href="https://google.com">Another Class</a></td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>02:00 PM</td>
-                            <td> </td>
-                            <td><a href="https://google.com">Another Class</a></td>
-                            <td> </td>
-                            <td><a href="https://google.com">Another Class</a></td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>03:00 PM</td>
-                            <td><a href="https://google.com">Another Class</a></td>
-                            <td> </td>
-                            <td><a href="https://google.com">Another Class</a></td>
-                            <td> </td>
-                            <td><a href="https://google.com">Another Class</a></td>
-                        </tr>
+                        {this.renderWeek()}
                     </tbody>
                 </Table>
             </Container>

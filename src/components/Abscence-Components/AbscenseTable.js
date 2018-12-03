@@ -1,11 +1,75 @@
 import React, {Component} from 'react';
+import axios from 'axios'
 import {Container, Table} from 'reactstrap';
-import ClassListTableCell from './ClassListTableCellSTU'
-import TimeCell from './TimeCell'
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import {AttendanceDate, AttendanceTime, AttendanceStatus} from '../Attendance-Components/AttendanceStats';
 
 class AbscenseTable extends Component{
+    state = {
+
+    }
+
+    componentDidMount(){
+        axios.get('/api/students/multi/'+this.props.match.params.courseID)
+            .then(res =>{
+                this.setState({...res.data})
+                console.log(this.props.match.params.courseID)
+                console.log(this.state)
+            });
+        }
+        
+        isAbsent(index){
+            if(this.state.cID_Attendence[this.state.classID][1][index] !== ""){
+                return true;
+            }
+            return false;
+        }
     
+        getStatus(index){
+            return this.state.cID_Attendence[this.state.classID][1][index]
+        }
+    
+        addAbsence(index){
+            if(this.getStatus(index) === "0"){
+                this.ABSCENSES++;
+            } else {
+                this.TARDIES++;
+                this.ABSCENSES++;
+            }
+        }
+        
+        renderDates(){
+            if(this.state.cID_Attendence[this.state.classID] !== undefined){
+                return this.state.cID_Attendence[this.state.classID][0].map((d, index) => {
+                    if(this.isAbsent(index)) 
+                    {
+                        this.addAbsence(index)
+                        return <AttendanceDate key={index} date={d}/>
+                    }})
+                } else {
+                    console.log(this.state.cID_Attendence)
+                }
+        }
+    
+        renderAttendence(){
+            if(this.state.cID_Attendence[this.state.classID] !== undefined){
+                return this.state.cID_Attendence[this.state.classID][1].map((d, index) => {
+                    if(this.isAbsent(index)) return <AttendanceStatus key={index} status={d}/>
+                })
+            } else {
+                console.log(this.state.cID_Attendence)
+            }
+        }
+    
+        renderTime(){
+            if(this.state.cID_Attendence[this.state.classID] !== undefined){
+                return this.state.cID_Attendence[this.state.classID][2].map((d, index) => {
+                    if(this.isAbsent(index)) return <AttendanceTime key={index} time={d}/>
+                })
+            } else {
+                console.log(this.state.cID_Attendence)
+            }
+        }
+
     render()
         {
         return(
@@ -31,7 +95,7 @@ class AbscenseTable extends Component{
                             
                             <th >FIRST NAME</th>
                             <th >LAST NAME</th>
-                            <td> 5/9</td>
+                            <AttendanceDate date="5/9"/>
                             <td> 7/9</td>
                             <td> 12/9</td>
                             <td> 14/9</td>

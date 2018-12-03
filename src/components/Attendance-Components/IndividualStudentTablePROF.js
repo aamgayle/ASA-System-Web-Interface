@@ -8,6 +8,7 @@ import {AttendanceDate, AttendanceStatus, AttendanceTime} from './AttendanceStat
 class IndividualStudentTablePROF extends Component{
     state = {
         classID: this.props.match.params.classID,
+        coursename: "",
         first_Name: "",
         last_Name: "",
         recepient:[],
@@ -23,7 +24,10 @@ class IndividualStudentTablePROF extends Component{
         axios.get('/api/students/single/'+this.props.match.params.stuID)
             .then(res =>{
                 this.setState({...res.data[0]})
-            })
+            });
+        axios.get('/api/courses/coursename/' + this.state.classID)
+            .then(res => this.setState({coursename : res.data}))
+         
     }
 
     isAbsent(index){
@@ -39,9 +43,9 @@ class IndividualStudentTablePROF extends Component{
 
     addAbsence(index){
         if(this.getStatus(index) === "0"){
-            this.TARDIES += 1;
             this.ABSCENSES++;
         } else {
+            this.TARDIES++;
             this.ABSCENSES++;
         }
     }
@@ -54,8 +58,6 @@ class IndividualStudentTablePROF extends Component{
                     this.addAbsence(index)
                     return <AttendanceDate key={index} date={d}/>
                 }})
-            } else {
-                console.log(this.state.cID_Attendence)
             }
     }
 
@@ -64,8 +66,6 @@ class IndividualStudentTablePROF extends Component{
             return this.state.cID_Attendence[this.state.classID][1].map((d, index) => {
                 if(this.isAbsent(index)) return <AttendanceStatus key={index} status={d}/>
             })
-        } else {
-            console.log(this.state.cID_Attendence)
         }
     }
 
@@ -74,9 +74,7 @@ class IndividualStudentTablePROF extends Component{
             return this.state.cID_Attendence[this.state.classID][2].map((d, index) => {
                 if(this.isAbsent(index)) return <AttendanceTime key={index} time={d}/>
             })
-        } else {
-            console.log(this.state.cID_Attendence)
-        }
+        } 
     }
 
 
@@ -86,9 +84,9 @@ class IndividualStudentTablePROF extends Component{
             else{
                 return(
                     <div>
-                       <h2 className="text-center">Student Name {this.state.first_Name} {this.state.last_Name}</h2>
-                        <h2 className="text-center">{this.props.match.params.classID}</h2>
-                        <h2 className="text-center">FALL 2018</h2>
+                       <h2 className="text-center">Student Name: {this.state.first_Name} {this.state.last_Name}</h2>
+                        <h2 className="text-center">Course: {this.props.match.params.classID} - {this.state.coursename}</h2>
+                        <h2 className="text-center">Term: FALL 2018</h2>
 
                         <Table hover>
                             <thead>

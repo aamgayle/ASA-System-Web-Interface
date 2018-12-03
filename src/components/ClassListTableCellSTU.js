@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class ClassListTableCell extends Component{
+class ClassListTableCellSTU extends Component{
     render(){
         return (
             <td>
@@ -11,4 +11,4 @@ class ClassListTableCell extends Component{
     }
 }
 
-export default ClassListTableCell;
+export default ClassListTableCellSTU;

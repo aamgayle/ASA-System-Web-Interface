@@ -9,6 +9,7 @@ class IndividualStudentTableSTU extends Component{
         classID: this.props.match.params.classID,
         first_Name: "",
         last_Name: "",
+        coursename: "",
         recepient:[],
         cID_Attendence:{},
         days_absent: 0,
@@ -21,9 +22,9 @@ class IndividualStudentTableSTU extends Component{
         axios.get('/api/students/single/'+this.props.match.params.stuID)
             .then(res =>{
                 this.setState({...res.data[0]})
-                console.log("This is the state")
-                console.log(this.state)
-            })
+            });
+        axios.get('/api/courses/coursename/' + this.state.classID)
+            .then(res => this.setState({coursename : res.data}))
     }
 
     isAbsent(index){
@@ -39,9 +40,9 @@ class IndividualStudentTableSTU extends Component{
 
     addAbsence(index){
         if(this.getStatus(index) === "0"){
-            this.TARDIES += 1;
             this.ABSCENSES++;
         } else {
+            this.TARDIES++;
             this.ABSCENSES++;
         }
     }
@@ -85,9 +86,9 @@ class IndividualStudentTableSTU extends Component{
             else{
                 return(
                     <div>
-                        <h2 className="text-center">Student Name {this.state.first_Name} {this.state.last_Name}</h2>
-                        <h2 className="text-center">{this.props.match.params.classID}</h2>
-                        <h2 className="text-center">FALL 2018</h2>
+                        <h2 className="text-center">Student Name: {this.state.first_Name} {this.state.last_Name}</h2>
+                        <h2 className="text-center">Course: {this.props.match.params.classID} - {this.state.coursename}</h2>
+                        <h2 className="text-center">Term: FALL 2018</h2>
 
                         <Table hover>
                             <thead>
