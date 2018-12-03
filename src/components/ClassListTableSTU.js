@@ -21,7 +21,7 @@ class ClassListTableSTU extends Component{
     //this.props.match.params.stuID
     
     componentDidMount(){
-        axios.get('/api/courses/getcourses/'+this.props.match.params.stuID)
+        axios.get('/api/courses/multi/'+this.props.match.params.stuID)
             .then(res =>{
                 this.setState({courses: res.data})
                 this.setTimeObject()
