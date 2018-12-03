@@ -1,6 +1,7 @@
 import AbscenceTable from './components/AbscenseTable';
 import AppNavbar from './components/AppNavbar';
-import ClassListTable from './components/ClassListTableSTU'
+import ClassListTableSTU from './components/ClassListTableSTU'
+import ClassListTablePROF from './components/ClassListTablePROF'
 import IndividualStudentTablePROF from './components/Attendance-Components/IndividualStudentTablePROF';
 import IndividualStudentTableSTU from './components/Attendance-Components/IndividualStudentTableSTU';
 import LoginPage from './components/LoginPage'
@@ -41,7 +42,8 @@ class App extends Component {
           <div>
             <Route exact path="/" component={LoginPage} />
             <Route path="/abscences" component={AbscenceTable}/>
-            <Route path="/classes" component={ClassListTable} />
+            <Route path="/classes/student/:stuID" render={(props) => <ClassListTableSTU {...props}/>}/>
+            <Route path="/classes/prof/:profID" render={(props) => <ClassListTablePROF {...props}/>}/>
             <Route path="/student-prof-view/:classID/:stuID" render={(props) => <IndividualStudentTablePROF {...props}/>}/>
             <Route path="/student-student-view/:classID/:stuID" render={(props) => <IndividualStudentTableSTU {...props}/>}/>
             <Route path="/tardy-window-example" component={TardyWindow}/>

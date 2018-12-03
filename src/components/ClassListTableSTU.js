@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import {Container, Table, Button} from 'reactstrap';
 import TimeCell from './TimeCell'
 import axios from 'axios';
-import ClassListTableCell from './ClassListTableCell';
+import ClassListTableCell from './ClassListTableCellSTU';
 
-class ClassListTable extends Component{
+class ClassListTableSTU extends Component{
     state = {
         courses: []
     };
 
+    //this.props.match.params.stuID
+    
     componentDidMount(){
         axios.get('/api/courses')
             .then(res =>{
@@ -26,9 +28,6 @@ class ClassListTable extends Component{
         {
         return(
             <Container>
-                <ul>
-                    {this.state.courses.map(course => <li>{JSON.stringify(course)}</li>)}
-                </ul>
                 <h1>Class Schedule</h1>
                 <h2>Marion Hamron</h2>
                 <h3>Fall - 2018</h3>
@@ -48,7 +47,7 @@ class ClassListTable extends Component{
                        
                         <tr>
                             <TimeCell time="00:00"/><td>Some Class</td><td>Some Class</td>
-                            <ClassListTableCell class_name="Test" class_id="Another Test"/>
+                            <ClassListTableCell class_name="Test" class_id="CIS2006" student_id="S0001"/>
                             <td>Some Class</td>
                             <td>Some Class</td>
                         </tr>
@@ -85,4 +84,4 @@ class ClassListTable extends Component{
     }
 }
 
-export default ClassListTable;
+export default ClassListTableSTU;

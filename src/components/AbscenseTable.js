@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Table} from 'reactstrap';
-import ClassListTableCell from './ClassListTableCell'
+import ClassListTableCell from './ClassListTableCellSTU'
 import TimeCell from './TimeCell'
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 

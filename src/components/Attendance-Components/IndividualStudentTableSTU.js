@@ -10,9 +10,13 @@ class IndividualStudentTableSTU extends Component{
         first_Name: "",
         last_Name: "",
         recepient:[],
-        cID_Attendence:{}
+        cID_Attendence:{},
+        days_absent: 0,
+        days_tardy: 0
     }
-
+    ABSCENSES = 0;
+    TARDIES = 0;
+    
     componentDidMount(){
         axios.get('/api/students/single/'+this.props.match.params.stuID)
             .then(res =>{
@@ -22,26 +26,55 @@ class IndividualStudentTableSTU extends Component{
             })
     }
 
+    isAbsent(index){
+        if(this.state.cID_Attendence[this.state.classID][1][index] !== ""){
+            return true;
+        }
+        return false;
+    }
+
+    getStatus(index){
+        return this.state.cID_Attendence[this.state.classID][1][index]
+    }
+
+    addAbsence(index){
+        if(this.getStatus(index) === "0"){
+            this.TARDIES += 1;
+            this.ABSCENSES++;
+        } else {
+            this.ABSCENSES++;
+        }
+    }
+    
     renderDates(){
         if(this.state.cID_Attendence[this.state.classID] !== undefined){
-        return this.state.cID_Attendence[this.state.classID][0].map((d, index) => {console.log(d); return <AttendanceDate key={index} date={d}/>})
-        } else{
-            console.log(this.state.cID_Attendence)
-        }
+            return this.state.cID_Attendence[this.state.classID][0].map((d, index) => {
+                if(this.isAbsent(index)) 
+                {
+                    this.addAbsence(index)
+                    return <AttendanceDate key={index} date={d}/>
+                }})
+            } else {
+                console.log(this.state.cID_Attendence)
+            }
     }
 
     renderAttendence(){
         if(this.state.cID_Attendence[this.state.classID] !== undefined){
-            return this.state.cID_Attendence[this.state.classID][1].map((d, index) => {console.log(d); return <AttendanceStatus key={index} status={d}/>})
-        } else{
+            return this.state.cID_Attendence[this.state.classID][1].map((d, index) => {
+                if(this.isAbsent(index)) return <AttendanceStatus key={index} status={d}/>
+            })
+        } else {
             console.log(this.state.cID_Attendence)
         }
     }
 
     renderTime(){
         if(this.state.cID_Attendence[this.state.classID] !== undefined){
-            return this.state.cID_Attendence[this.state.classID][2].map((d, index) => {console.log(d); return <AttendanceTime key={index} time={d}/>})
-        } else{
+            return this.state.cID_Attendence[this.state.classID][2].map((d, index) => {
+                if(this.isAbsent(index)) return <AttendanceTime key={index} time={d}/>
+            })
+        } else {
             console.log(this.state.cID_Attendence)
         }
     }
@@ -52,13 +85,10 @@ class IndividualStudentTableSTU extends Component{
             else{
                 return(
                     <div>
-                        <h2>{}</h2>
                         <h2 className="text-center">Student Name {this.state.first_Name} {this.state.last_Name}</h2>
                         <h2 className="text-center">{this.props.match.params.classID}</h2>
                         <h2 className="text-center">FALL 2018</h2>
-                        <Table>
-        
-                        </Table>
+
                         <Table hover>
                             <thead>
                                 <tr>
@@ -70,7 +100,7 @@ class IndividualStudentTableSTU extends Component{
                             <br/>
                             <tbody>
                                 <h4>Report</h4>
-                                <h6>**TOTAL ABSCENSES/SOFT ABSCENSES </h6>
+                                <h6>**TOTAL ABSCENSES/SOFT ABSCENSES - {this.ABSCENSES}/{this.TARDIES}</h6>
                                 <Table striped hover bordered >
                                     <tr>
                                         <td>Date</td>
@@ -90,7 +120,6 @@ class IndividualStudentTableSTU extends Component{
                     </div>
                     )
             }
- 
     }
 }
 
