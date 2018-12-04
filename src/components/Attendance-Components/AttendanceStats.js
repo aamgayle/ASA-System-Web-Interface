@@ -13,6 +13,16 @@ class AttendanceDate extends Component{
         }
 }
 
+class AbscenceDate extends Component{
+    render()
+        {
+        return(
+            <th>{this.props.date}</th>
+            )
+        }
+}
+
+
 //Component to render Attendence cells for
 //IndividualStudentTableSTU and IndividualStudentTablePROF pages
 //Renders either an A or an A with a flag next to it to depict tardiness
@@ -21,11 +31,11 @@ class AttendanceStatus extends Component{
         {
             if(this.props.status === '0'){
                 return <td>A</td>
-            } else{
+            } else if(this.props.status === '1'){
                 return <td>A<img alt="Tardy Flag" src={flag}/></td>
-                    
             }
-        
+            
+            return <td></td>
         }
 }
 
@@ -43,5 +53,6 @@ class AttendanceTime extends Component{
 export{
     AttendanceDate,
     AttendanceStatus,
-    AttendanceTime
+    AttendanceTime,
+    AbscenceDate
 }

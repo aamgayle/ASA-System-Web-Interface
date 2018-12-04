@@ -22,6 +22,7 @@ class ClassListTablePROF extends Component{
             .then(res =>{
                 this.setState({courses: res.data})
                 this.setTimeObject()
+                console.log(this.state.timeObj)
             })
     }
 
