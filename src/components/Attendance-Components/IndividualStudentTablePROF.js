@@ -27,7 +27,7 @@ class IndividualStudentTablePROF extends Component{
             });
         axios.get('/api/courses/coursename/' + this.state.classID)
             .then(res => this.setState({coursename : res.data}))
-         
+            .then(() => console.log(this.state))
     }
 
     isAbsent(index){
@@ -95,7 +95,7 @@ class IndividualStudentTablePROF extends Component{
                                     <th>Recipient Email</th>
                                     <th>Action</th>
                                 </tr>
-                                {this.state.recepient.map(r => <RecipientProf name={r[0]} email={r[1]}/>)}
+                                {this.state.recepient.map((r, index) => <RecipientProf sID={this.props.match.params.stuID} index={index} name={r[0]} email={r[1]}/>)}
                                 
                                 <tr><th>Add Email</th></tr>
                                 <AddRecipient/>

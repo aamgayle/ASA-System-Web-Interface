@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import TardyWindow from "../TardyWindow";
 import axios from 'axios'
 import {Container, Table} from 'reactstrap';
-import {AbscenceDate, AttendanceTime, AttendanceStatus} from '../Attendance-Components/AttendanceStats';
+import {AbscenceDate, AttendanceStatus} from '../Attendance-Components/AttendanceStats';
 import ClassListTableSTU from '../ClassListTableCellSTU';
 
 class AbscenseTable extends Component{
@@ -58,9 +59,7 @@ class AbscenseTable extends Component{
             )
         }
                 
-    
         renderDate(pdate){
-            console.log("pdate")
             return(<AbscenceDate date={pdate}/>)
         }
 
@@ -69,7 +68,6 @@ class AbscenseTable extends Component{
                     this.state.students.map(student => {
                         return(
                             <tr>
-                                <th><input type="checkbox" className="text-center"></input></th>
                                 <ClassListTableSTU 
                                     class_id={this.props.match.params.courseID} 
                                     student_id={student[0]} 
@@ -79,8 +77,8 @@ class AbscenseTable extends Component{
                             </tr>
                         )
                     }
-                    )
                 )
+            )
         }
     
         renderStatus(attendance){
@@ -101,25 +99,22 @@ class AbscenseTable extends Component{
                         <th> Datbase Managment</th>
                         <th> FALL - 2018 </th>
                     </tr>
-        
                 </Table>
-        
-        
-                    <Table striped hover  border = "3" >
-                        <tr>
-                            <td colspan = "2"></td>
-                            <td colspan = "12">DATES</td>
-                            <td> TOTAL**  </td>
-                        </tr>
-                        <tr>
-                            <th>Select Student</th>
-                            <th>Student Name</th>
-                            {this.renderDates()}
-                        </tr>
-                        {this.renderAttendence()}
-                    </Table>
-                    <p>** TOTAL ABSENCE/SOFT ABSENCE </p>
-        
+
+                <Table striped hover  border = "3" >
+                    <tr>
+                        <td colspan = "1"></td>
+                        <td colspan = "15">DATES</td>
+                    </tr>
+                    <tr>
+                        <th>Student Name</th>
+                        {this.renderDates()}
+                    </tr>
+                    {this.renderAttendence()}
+                </Table>
+
+                <p>** TOTAL ABSENCE/SOFT ABSENCE </p>
+                    <TardyWindow/>
             </Container>
             
         )

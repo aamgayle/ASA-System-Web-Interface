@@ -6,6 +6,7 @@ import ClassListTableCellPROF from './ClassListTableCellPROF';
 
 class ClassListTablePROF extends Component{
     state = {
+        name: "",
         courses: [],
         daysObj:{
             "Monday":"1",

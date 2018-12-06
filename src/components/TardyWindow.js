@@ -9,7 +9,7 @@ class TardyWindow extends Component {
     render(){
         return(
             <Container>
-                <h1>SET ATTENDENCE REGISTRATION</h1>
+                <h3>SET ATTENDENCE REGISTRATION</h3>
                 Enter the time period: <SchoolDropdownMenu/>
                 <br/>
                 <button>SET</button>
