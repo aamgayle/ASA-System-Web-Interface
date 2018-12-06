@@ -3,7 +3,7 @@ import TardyWindow from "../TardyWindow";
 import axios from 'axios'
 import {Container, Table} from 'reactstrap';
 import {AbscenceDate, AttendanceStatus} from '../Attendance-Components/AttendanceStats';
-import ClassListTableSTU from '../ClassListTableCellSTU';
+import AbscenceTableCell from './AbscenceTableCell';
 
 class AbscenseTable extends Component{
     state = {
@@ -68,9 +68,9 @@ class AbscenseTable extends Component{
                     this.state.students.map(student => {
                         return(
                             <tr>
-                                <ClassListTableSTU 
+                                <AbscenceTableCell 
                                     class_id={this.props.match.params.courseID} 
-                                    student_id={student[0]} 
+                                    prof_id={student[0]} 
                                     class_name={student[1] + " " + student[2]
                                 }/>
                                 {this.renderStatus(student[3][1])}
@@ -93,7 +93,7 @@ class AbscenseTable extends Component{
         return(
             <Container>
                 <h1>CIS-4005 ATTENDENCE REPORT</h1>
-                <Table id = "info" width = "100%" cellpadding = "10" cellspacing = "10" border = "2" >
+                <Table id = "info" width = "100%" cellpadding = "10" cellspacing = "10" border = "3" >
                     <tr> 
                         <th>INSTRUCTOR - Dr. Hendricks </th>
                         <th> Datbase Managment</th>
@@ -114,7 +114,7 @@ class AbscenseTable extends Component{
                 </Table>
 
                 <p>** TOTAL ABSENCE/SOFT ABSENCE </p>
-                    <TardyWindow/>
+                    <TardyWindow courseID = {this.props.match.params.courseID}/>
             </Container>
             
         )

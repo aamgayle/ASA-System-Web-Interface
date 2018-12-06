@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Table, Button} from 'reactstrap';
+import {Container, Table} from 'reactstrap';
 import TimeCell from './TimeCell'
 import axios from 'axios';
 import ClassListTableCellPROF from './ClassListTableCellPROF';

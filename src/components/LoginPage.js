@@ -4,13 +4,42 @@ import {
     Button,
     Container
 } from 'reactstrap';
+import axios from 'axios'
 
 class LoginPage extends Component {
     state = {
-        username: "",
-        password: "",
-        login_status: false
+        userID: "",
+        attempts: 0,
+        fail: false
     }
+
+    removeRecepient(){
+        console.log("Start")
+        axios.get('/api/students/deleterec/'+ this.props.index +'/'+ this.props.sID)
+        .then(success => console.log(success))
+        .catch(console.log("Didn't do it"))
+
+    }
+
+    checkUser(username, password){
+            axios.get('/api/profiles/'+ username +'/'+password)
+                .then(success => {success.data.includes("S") && success !== "NO USER FOUND" ? window.location = "/classes/student/"+success.data : window.location = "/classes/prof/"+success.data})
+                .catch(err => this.renderFailure(err))    
+
+            // console.log(this.state.attempts)
+            // this.renderFailure()
+        }
+        
+    renderFailure(err){
+        if(this.state.attempts < 5){
+            document.getElementById('fail-message').innerHTML = "Wrong username/password. Try again"
+            this.setState({attempts: this.state.attempts + 1})
+            console.log(this.state)
+        } else {
+            document.getElementById('fail-message').innerHTML = "Max attempts exceeded. Please try again later"
+        }
+    }
+
     render(){
         return(
             <Container>
@@ -24,9 +53,11 @@ class LoginPage extends Component {
                 Password:
                 <Input type="text" id="password_input" name="password_input"/>
                 <br/>
+                <h4 id="fail-message"></h4>
                 <div>Remember me <input type="checkbox"></input></div> 
                 <br/>
-                <Button>SUBMIT</Button>
+                <Button onClick={() => {this.checkUser(document.getElementById("username_input").value,
+                                                        document.getElementById("password_input").value)}}>SUBMIT</Button>
             </Container>
         )
     }

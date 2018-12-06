@@ -6,6 +6,7 @@ export default class SchoolDropdownMenu extends React.Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.replaceText = this.replaceText.bind(this);
     this.state = {
       dropdownOpen: false
     };
@@ -16,18 +17,21 @@ export default class SchoolDropdownMenu extends React.Component {
       dropdownOpen: !prevState.dropdownOpen
     }));
   }
+  replaceText(event){
+    document.getElementById("dropdown").innerHTML = event.target.innerHTML
+  }
 
   render() {
     return (
-      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle caret>
+      <Dropdown setActiveFromChild isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <DropdownToggle id="dropdown" caret>
           Time Period
         </DropdownToggle>
         <DropdownMenu>
-            <DropdownItem>No Interval</DropdownItem>
-            <DropdownItem>5 Minutes</DropdownItem>
-            <DropdownItem>10 Minutes</DropdownItem>
-            <DropdownItem>15 Minutes</DropdownItem>
+            <DropdownItem onClick={this.replaceText}>No Interval</DropdownItem>
+            <DropdownItem onClick={this.replaceText}>5 Minutes</DropdownItem>
+            <DropdownItem onClick={this.replaceText}>10 Minutes</DropdownItem>
+            <DropdownItem onClick={this.replaceText}>15 Minutes</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );

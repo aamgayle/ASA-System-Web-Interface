@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 
-class ClassListTableCellPROF extends Component{
+class AbscenceTableCell extends Component{
     render(){
         return (
             <td>
-                <a href={"/abscences/"+this.props.class_id+"/"+this.props.prof_id}>
+                <a href={"/student-prof-view/"+this.props.class_id+"/"+this.props.prof_id}>
                     {this.props.class_name}
                 </a>
             </td>)
     }
 }
 
-export default ClassListTableCellPROF;
+export default AbscenceTableCell;

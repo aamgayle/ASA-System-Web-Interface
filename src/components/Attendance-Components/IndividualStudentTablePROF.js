@@ -95,10 +95,10 @@ class IndividualStudentTablePROF extends Component{
                                     <th>Recipient Email</th>
                                     <th>Action</th>
                                 </tr>
-                                {this.state.recepient.map((r, index) => <RecipientProf sID={this.props.match.params.stuID} index={index} name={r[0]} email={r[1]}/>)}
+                                {this.state.recepient.map((r, index) => <RecipientProf onClick={() => {this.btnTapped()}} sID={this.props.match.params.stuID} index={index} name={r[0]} email={r[1]}/>)}
                                 
                                 <tr><th>Add Email</th></tr>
-                                <AddRecipient/>
+                                <AddRecipient sID={this.state._id}/>
                             </thead>
                             <br/>
                             <tbody>

@@ -12,8 +12,13 @@ class RecipientProf extends Component{
 
     removeRecepient(){
         console.log("Start")
-        // axios.patch('api/students/deleterec/'+this.props.index+'/'+this.props.sID)
-        // .then(console.log('done'))
+        axios.patch('/api/students/deleterec/'+ this.props.index +'/'+ this.props.sID)
+        .catch(console.log("Didn't do it"))
+        window.location.reload()
+    }
+
+    btnTapped(){
+        console.log("CLICKED")
     }
 
     render(){
@@ -21,7 +26,7 @@ class RecipientProf extends Component{
             <tr>
                 <td>{this.state.r_name}</td>
                 <td>{this.state.r_email}</td>
-                <td><button onClick = {() => this.removeRecepient}>Remove</button></td>
+                <td><button onClick = {() => {this.removeRecepient()}}>Remove</button></td>
             </tr>
         )
     }
